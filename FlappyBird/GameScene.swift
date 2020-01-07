@@ -12,7 +12,10 @@ class GameScene: SKScene {
     // // スクロールするスプライトの親ノード
     var scrollNode:SKNode!
     var wallNode:SKNode!
-
+    var bird:SKSpriteNode!
+    
+    
+    
     // SKView上にシーンが表示されたときに呼ばれるメソッド
     override func didMove(to view: SKView) {
         // 画面を構築する処理を書いたり、ゲームの初期設定を行う。
@@ -42,7 +45,30 @@ class GameScene: SKScene {
         setupGround()
         setupCloud()
         setupWall()   // 追加
+        setupBird()
         
+    }
+    // 鳥を表示
+    func setupBird() {
+        // 鳥の画像を2種類読み込む
+        let birdTextureA = SKTexture(imageNamed: "bird_a")
+        birdTextureA.filteringMode = .linear
+        let birdTextureB = SKTexture(imageNamed: "bird_b")
+        birdTextureB.filteringMode = .linear
+
+        // 2種類のテクスチャを交互に変更するアニメーションを作成
+        let texturesAnimation = SKAction.animate(with: [birdTextureA, birdTextureB], timePerFrame: 0.2)
+        let flap = SKAction.repeatForever(texturesAnimation)
+
+        // スプライトを作成
+        bird = SKSpriteNode(texture: birdTextureA)
+        bird.position = CGPoint(x: self.frame.size.width * 0.2, y:self.frame.size.height * 0.7)
+
+        // アニメーションを設定
+        bird.run(flap)
+
+        // スプライトを追加する
+        addChild(bird)
     }
     // 地面をスクロール
     func setupGround() {
