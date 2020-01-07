@@ -24,9 +24,14 @@ class ViewController: UIViewController {
 
         // ビューと同じサイズでシーンを作成する
         let scene = GameScene(size:skView.frame.size)
-
         // ビューにシーンを表示する
         skView.presentScene(scene)
+    }
+    // ステータスバーを消す
+    override var prefersStatusBarHidden: Bool {
+        get {
+            return true
+        }
     }
 
 }
