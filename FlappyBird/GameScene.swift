@@ -13,6 +13,11 @@
 
 import SpriteKit
 
+
+import AVFoundation
+
+
+
 class GameScene: SKScene, SKPhysicsContactDelegate  {
 
     var scrollNode:SKNode!
@@ -27,11 +32,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 
     // スコア用
     var score = 0
+    
+    // アイテムスコア用
+    var itemScore = 0
+    
     var scoreLabelNode:SKLabelNode!
     var bestScoreLabelNode:SKLabelNode!
+
+    // アイテムスコア用
+    var itemScoreLabelNode:SKLabelNode!
+    
     let userDefaults:UserDefaults = UserDefaults.standard
 
+    // ---------------------------------------------------
     // SKView上にシーンが表示されたときに呼ばれるメソッド
+    // ---------------------------------------------------
     override func didMove(to view: SKView) {
 
         // 重力を設定
@@ -55,14 +70,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         setupWall()
         setupBird()
 
-
         setupScoreLabel()
+        soundGo("start")
         
     }
     // ---------------------------------------------------
     //スコア表示用ラベルの初期化
     // ---------------------------------------------------
     func setupScoreLabel() {
+
+
         score = 0
         scoreLabelNode = SKLabelNode()
         scoreLabelNode.fontColor = UIColor.black
@@ -81,6 +98,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         let bestScore = userDefaults.integer(forKey: "BEST")
         bestScoreLabelNode.text = "Best Score:\(bestScore)"
         self.addChild(bestScoreLabelNode)
+
+
+        // アイテムスコア用
+        itemScore = 0
+        itemScoreLabelNode = SKLabelNode()
+        itemScoreLabelNode.fontColor = UIColor.red
+        itemScoreLabelNode.position = CGPoint(x: 10, y: self.frame.size.height - 120)
+        itemScoreLabelNode.zPosition = 100 // 一番手前に表示する
+        itemScoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
+
+//        itemScoreLabelNode.text = "Item Score:\(score)"
+        itemScoreLabelNode.text = "アイテムスコア:\(score)"
+        self.addChild(itemScoreLabelNode)
+
+
     }
     
     // ---------------------------------------------------
@@ -105,12 +137,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             restart()
         }
     }
+
+    var player: AVAudioPlayer?
+    
+    func soundGo(_ fileName: String) {
+        if let sound = NSDataAsset(name: fileName) {
+            player = try? AVAudioPlayer(data: sound.data)
+            player?.play()
+        }
+    }
+    
     // ---------------------------------------------------
     // SKPhysicsContactDelegateのメソッド。衝突したときに呼ばれる
     // ---------------------------------------------------
+    
     func didBegin(_ contact: SKPhysicsContact) {
         // ゲームオーバーのときは何もしない
         if scrollNode.speed <= 0 {
+            soundGo( "fin")
             return
         }
 
@@ -173,6 +217,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 
         bird.speed = 1
         scrollNode.speed = 1
+        soundGo("start")
     }
 
     // ---------------------------------------------------
