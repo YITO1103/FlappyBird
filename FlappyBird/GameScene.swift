@@ -60,7 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate /* 追加 */ {
             // 鳥の速度をゼロにする
             bird.physicsBody?.velocity = CGVector.zero
             // 鳥に縦方向の力を与える
-            bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 15))
+            bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 40))
 
 
             // for Test
@@ -85,11 +85,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate /* 追加 */ {
 
         if (contact.bodyA.categoryBitMask & scoreCategory) == scoreCategory || (contact.bodyB.categoryBitMask & scoreCategory) == scoreCategory {
             // スコア用の物体と衝突した
-            print("ScoreUp")
             score += 1
+            print("スコア用の物体と衝突 score=" + score.description)
+
         } else {
+            
             // 壁か地面と衝突した
-            print("GameOver")
+            if (contact.bodyA.categoryBitMask & groundCategory == groundCategory ||
+                contact.bodyB.categoryBitMask & groundCategory == groundCategory){
+                print("地面と衝突")
+            }
+            else{
+                print("壁と衝突")
+
+            }
 
             // スクロールを停止させる
             scrollNode.speed = 0
