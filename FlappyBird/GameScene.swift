@@ -5,6 +5,11 @@
 //  Created by user1 on 2020/01/06.
 //  Copyright © 2020 yutaka.ito4. All rights reserved.
 //
+/*
+ http://nerd0geek1.hatenablog.com/entry/2016/02/19/200000
+ 
+ 
+*/
 
 import SpriteKit
 
@@ -109,8 +114,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate{
     }
     // 地面をスクロール
     func setupGround() {
-
-
 
         // 地面の画像を読み込む
         let groundTexture = SKTexture(imageNamed: "ground")
