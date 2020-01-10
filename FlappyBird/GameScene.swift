@@ -30,6 +30,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     let wallCategory: UInt32 = 1 << 2       // 0...00100
     let scoreCategory: UInt32 = 1 << 3      // 0...01000
 
+    let itemCategory: UInt32 = 1 << 4       // 0...10000
+
     // スコア用
     var score = 0
     
@@ -69,6 +71,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         setupCloud()
         setupWall()
         setupBird()
+        
+        
+        
+        setupItems()
+
+
+
 
         setupScoreLabel()
         soundGo("start")
@@ -186,7 +195,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             }
             else{
                 print("壁と衝突")
-
+            soundGo( "don")
+                
             }
 
             // スクロールを停止させる
@@ -317,10 +327,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         print("[groundTexture] size-------------------")
         print(cloudTexture.size().width.description + "," + cloudTexture.size().height.description)
         print("必要な枚数:" + needCloudNumber.description)
-        
-        
-        
-        
+
         // スクロールするアクションを作成
         // 左方向に画像一枚分スクロールさせるアクション
         let moveCloud = SKAction.moveBy(x: -cloudTexture.size().width , y: 0, duration: 20)
@@ -444,4 +451,91 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 
         wallNode.run(repeatForeverAnimation)
     }
+    // ---------------------------------------------------
+    // アイテム
+    // ---------------------------------------------------
+    func setupItems() {
+        // 壁の画像を読み込む
+        let item8Texture = SKTexture(imageNamed: "item8")
+        item8Texture.filteringMode = .nearest
+
+        // 移動する距離を計算
+        let movingDistance = CGFloat(self.frame.size.width + item8Texture.size().width)
+
+        // 画面外まで移動するアクションを作成
+        let moveItem = SKAction.moveBy(x: -movingDistance, y: 0, duration:4)
+
+        // 自身を取り除くアクションを作成
+        let removeItem = SKAction.removeFromParent()
+
+        // 2つのアニメーションを順に実行するアクションを作成
+        let itemAnimation = SKAction.sequence([moveItem, removeItem])
+
+        // aitemuの画像サイズを取得
+        let itemSize = SKTexture(imageNamed: "item8").size()
+
+        // ふれはばはアイテムサイズの3倍とする
+        //#let slit_length = itemSize.height * 3
+
+        // 隙間位置の上下の振れ幅を鳥のアイテムの3倍とする
+        //#let random_y_range = itemSize.height * 3
+
+        // 下の壁のY軸下限位置(中央位置から下方向の最大振れ幅で下の壁を表示する位置)を計算
+        let wallSize = SKTexture(imageNamed: "wall").size()
+
+        //#let groundSize = SKTexture(imageNamed: "ground").size()
+        //#let center_y = groundSize.height + (self.frame.size.height - groundSize.height) / 2
+        
+        //#let under_wall_lowest_y = center_y - slit_length / 2 - item8Texture.size().height / 2 - random_y_range / 2
+
+        // 壁を生成するアクションを作成
+        let createWallAnimation = SKAction.run({
+            // 壁関連のノードを乗せるノードを作成
+            let wall = SKNode()
+            //#wall.position = CGPoint(x: self.frame.size.width + item8Texture.size().width / 2, y: 0)
+            wall.position = CGPoint(x: self.frame.size.width + wallSize.width + item8Texture.size().width  * 2, y: 0)
+            wall.zPosition = -50 // 雲より手前、地面より奥
+
+            // 0〜random_y_rangeまでのランダム値を生成
+            //#let random_y = CGFloat.random(in: 0..<random_y_range)
+            
+            var random_y = CGFloat.random(in: 0..<(itemSize.height * 3))
+            if (random_y.hashValue) % 2 == 1 {
+                random_y = -(random_y)
+            }
+            
+            
+            // Y軸の下限にランダムな値を足して、下の壁のY座標を決定
+            //#let under_wall_y = under_wall_lowest_y + random_y
+            let under_wall_y = self.frame.size.height / 2 + item8Texture.size().height / 2 + random_y
+
+
+            // 上側の壁を作成
+            let upper = SKSpriteNode(texture: item8Texture)
+            //#upper.position = CGPoint(x: 0, y: under_wall_y + item8Texture.size().height + slit_length)
+            upper.position = CGPoint(x: 0, y: under_wall_y )
+
+            // スプライトに物理演算を設定する
+            upper.physicsBody = SKPhysicsBody(rectangleOf: item8Texture.size())
+            upper.physicsBody?.categoryBitMask = self.itemCategory
+
+            // 衝突の時に動かないように設定する
+            upper.physicsBody?.isDynamic = false
+
+            wall.addChild(upper)
+
+            wall.run(itemAnimation)
+
+            self.wallNode.addChild(wall)
+        })
+
+        // 次の壁作成までの時間待ちのアクションを作成
+        let waitAnimation = SKAction.wait(forDuration: 2)
+
+        // 壁を作成->時間待ち->壁を作成を無限に繰り返すアクションを作成
+        let repeatForeverAnimation = SKAction.repeatForever(SKAction.sequence([createWallAnimation, waitAnimation]))
+
+        wallNode.run(repeatForeverAnimation)    }
+    
+    
 }
