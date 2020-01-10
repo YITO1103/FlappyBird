@@ -13,6 +13,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+
+        
         // SKViewに型を変換する
         let skView = self.view as! SKView
 
@@ -29,6 +31,7 @@ class ViewController: UIViewController {
  */
         skView.presentScene(GameScene(size:skView.frame.size))
 
+        
     }
     // ステータスバーを消す
     override var prefersStatusBarHidden: Bool {
