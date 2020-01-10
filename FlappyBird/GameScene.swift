@@ -81,16 +81,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 
 
         score = 0
-        scoreLabelNode = SKLabelNode()
-        scoreLabelNode.fontColor = UIColor.black
+        scoreLabelNode = SKLabelNode(fontNamed: "AvenirNext-Bold")
+        scoreLabelNode.fontColor = UIColor.red
         scoreLabelNode.position = CGPoint(x: 10, y: self.frame.size.height - 60)
         scoreLabelNode.zPosition = 100 // 一番手前に表示する
         scoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         scoreLabelNode.text = "Score:\(score)"
         self.addChild(scoreLabelNode)
 
-        bestScoreLabelNode = SKLabelNode()
-        bestScoreLabelNode.fontColor = UIColor.black
+        bestScoreLabelNode = SKLabelNode(fontNamed: "AvenirNext-Bold")
+        bestScoreLabelNode.fontColor = UIColor.red
         bestScoreLabelNode.position = CGPoint(x: 10, y: self.frame.size.height - 90)
         bestScoreLabelNode.zPosition = 100 // 一番手前に表示する
         bestScoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
@@ -102,7 +102,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 
         // アイテムスコア用
         itemScore = 0
-        itemScoreLabelNode = SKLabelNode()
+        itemScoreLabelNode = SKLabelNode(fontNamed: "AvenirNext-Bold")
         itemScoreLabelNode.fontColor = UIColor.red
         itemScoreLabelNode.position = CGPoint(x: 10, y: self.frame.size.height - 120)
         itemScoreLabelNode.zPosition = 100 // 一番手前に表示する
@@ -154,7 +154,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     func didBegin(_ contact: SKPhysicsContact) {
         // ゲームオーバーのときは何もしない
         if scrollNode.speed <= 0 {
-            soundGo( "fin")
+            soundGo( "fin2")
             return
         }
 
