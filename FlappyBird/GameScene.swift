@@ -127,7 +127,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 
 
             // for Test
-            // 鳥の速度をゼロにする
+            // 鳥の速度を??にする
             //bird.physicsBody?.velocity = CGVector.init(dx: 10, dy: 1)
             // 鳥に縦方向の力を与える
             //bird.physicsBody?.applyImpulse(CGVector(dx: 30, dy: 40))
