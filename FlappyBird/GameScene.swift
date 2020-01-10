@@ -25,12 +25,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     var bird:SKSpriteNode!
 
     // 衝突判定カテゴリー ↓追加
-    let birdCategory: UInt32 = 1 << 0       // 0...00001
-    let groundCategory: UInt32 = 1 << 1     // 0...00010
-    let wallCategory: UInt32 = 1 << 2       // 0...00100
-    let scoreCategory: UInt32 = 1 << 3      // 0...01000
+    let birdCategory: UInt32 = 1 << 0       // 0...000001
+    let groundCategory: UInt32 = 1 << 1     // 0...000010
+    let wallCategory: UInt32 = 1 << 2       // 0...000100
+    let scoreCategory: UInt32 = 1 << 3      // 0...001000
 
-    let itemCategory: UInt32 = 1 << 4       // 0...10000
+    let item8Category: UInt32 = 1 << 4       // 0...010000
+    let item19Category: UInt32 = 1 << 5      // 0...010000
 
     // スコア用
     var score = 0
@@ -183,15 +184,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             }
             
             print("スコア用の物体と衝突 score=" + score.description)
-        } else if (contact.bodyA.categoryBitMask & itemCategory) == itemCategory ||
-            (contact.bodyB.categoryBitMask & itemCategory) == itemCategory {
-            // itemと衝突した
-            contact.bodyA.node!.removeFromParent()
-            soundGo( "get")
-            itemScore += 1
-            itemScoreLabelNode.text = "アイテムスコア:\(itemScore)"
-            
-        } else {
+            } else if (contact.bodyA.categoryBitMask & item8Category) == item8Category ||
+                (contact.bodyB.categoryBitMask & item8Category) == item8Category {
+                // itemと衝突した
+                contact.bodyA.node!.removeFromParent()
+                
+                soundGo( "get")
+                itemScore += 8
+                itemScoreLabelNode.text = "アイテムスコア:\(itemScore)"
+                
+            } else if (contact.bodyA.categoryBitMask & item19Category) == item19Category ||
+                    (contact.bodyB.categoryBitMask & item19Category) == item19Category {
+                    // itemと衝突した
+                    contact.bodyA.node!.removeFromParent()
+
+                    soundGo( "get")
+                    itemScore += 19
+                    itemScoreLabelNode.text = "アイテムスコア:\(itemScore)"
+                    
+            }   else {
             
             // 壁か地面と衝突した
             if (contact.bodyA.categoryBitMask & groundCategory == groundCategory ||
@@ -265,8 +276,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         // 衝突のカテゴリー設定
         bird.physicsBody?.categoryBitMask = birdCategory
         bird.physicsBody?.collisionBitMask = groundCategory | wallCategory // | itemCategory
-        bird.physicsBody?.contactTestBitMask = groundCategory | wallCategory | itemCategory
-        // アニメーションを設定
+        bird.physicsBody?.contactTestBitMask = groundCategory | wallCategory | item8Category | item19Category        // アニメーションを設定
         bird.run(flap)
 
         // スプライトを追加する
@@ -460,68 +470,106 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     }
     let groundMoveTime = 4
     // ---------------------------------------------------
-    // アイテム
+    // アイテム 30 30
     // ---------------------------------------------------
     func setupItems() {
         // 壁の画像を読み込む
         let item8Texture = SKTexture(imageNamed: "item8")
         item8Texture.filteringMode = .nearest
 
+        let item19Texture = SKTexture(imageNamed: "item19")
+        item19Texture.filteringMode = .nearest
+
+
         // 移動する距離を計算
-        let movingDistance = CGFloat(self.frame.size.width + item8Texture.size().width)
+        let movingDistance8 = CGFloat(self.frame.size.width + item8Texture.size().width)
+        let movingDistance19 = CGFloat(self.frame.size.width + item19Texture.size().width)
 
         // 画面外まで移動するアクションを作成
-        let moveItem = SKAction.moveBy(x: -movingDistance, y: 0, duration: TimeInterval(groundMoveTime))
+        let moveItem8 = SKAction.moveBy(x: -movingDistance8, y: 0, duration: TimeInterval(groundMoveTime))
+        let moveItem19 = SKAction.moveBy(x: -movingDistance19, y: 0, duration: TimeInterval(groundMoveTime))
 
         // 自身を取り除くアクションを作成
         let removeItem = SKAction.removeFromParent()
 
         // 2つのアニメーションを順に実行するアクションを作成
-        let itemAnimation = SKAction.sequence([moveItem, removeItem])
+        let itemAnimation8 = SKAction.sequence([moveItem8, removeItem])
+        let itemAnimation19 = SKAction.sequence([moveItem19, removeItem])
 
         // aitemuの画像サイズを取得
         let itemSize = SKTexture(imageNamed: "item8").size()
 
-        // 下の壁のY軸下限位置(中央位置から下方向の最大振れ幅で下の壁を表示する位置)を計算
-        //#let wallSize = SKTexture(imageNamed: "wall").size()
 
         // 壁を生成するアクションを作成
         let createWallAnimation = SKAction.run({
-        //#    let pos_x = self.frame.size.width + wallSize.width + item8Texture.size().width  * 2            // 壁関連のノードを乗せるノードを作成
-            let pos_x = self.frame.size.width  - item8Texture.size().width  * 2            // 壁関連のノードを乗せるノードを作成
-            let itemNode = SKNode()
-            itemNode.position = CGPoint(x: pos_x, y: 0)
-            itemNode.zPosition = -50 // 雲より手前、地面より奥
+            let pos_x = self.frame.size.width  - item8Texture.size().width  * 3           // 壁関連のノードを乗せるノードを作成
+            let itemNode8 = SKNode()
+            itemNode8.position = CGPoint(x: pos_x, y: 0)
+            let itemNode19 = SKNode()
+            itemNode19.position = CGPoint(x: pos_x, y: 0)
+            
+            let random0 = Int(CGFloat.random(in: 0..<99)) % 2
+        
+            itemNode8.zPosition = -40
+            itemNode19.zPosition = -50
 
+            if random0 == 1 {
+                itemNode8.zPosition = -50
+                itemNode19.zPosition = -40
+                
+            }
             var random_y = CGFloat.random(in: 0..<(itemSize.height * 3))
-            if (random_y.hashValue) % 2 == 1 {
+            if random0 == 1 {
                 random_y = -(random_y)
             }
-            //item作成
-            let itemSpNode = SKSpriteNode(texture: item8Texture)
-            itemSpNode.position = CGPoint(x: 0, y: self.frame.size.height / 2 + item8Texture.size().height / 2 + random_y )
 
-            // スプライトに物理演算を設定する
-            itemSpNode.physicsBody = SKPhysicsBody(rectangleOf: item8Texture.size())
-            itemSpNode.physicsBody?.categoryBitMask = self.itemCategory
+            
+            
+            
+            var itemSpNode8 : SKSpriteNode
+            var itemSpNode19 : SKSpriteNode
+
+            itemSpNode8 = SKSpriteNode(texture: item8Texture)
+            itemSpNode8.position = CGPoint(x: 0, y: self.frame.size.height / 2 + item8Texture.size().height / 2 + random_y )
+            itemSpNode8.physicsBody = SKPhysicsBody(rectangleOf: item8Texture.size())
+            itemSpNode8.physicsBody?.categoryBitMask = self.item8Category
+
+            itemSpNode19 = SKSpriteNode(texture: item19Texture)
+            itemSpNode19.position = CGPoint(x: 0, y: self.frame.size.height / 2 + item8Texture.size().height / 2 + random_y )
+            itemSpNode19.physicsBody = SKPhysicsBody(rectangleOf: item19Texture.size())
+            itemSpNode19.physicsBody?.categoryBitMask = self.item19Category
+
+            if random0 == 1 {
+                itemSpNode8.physicsBody?.categoryBitMask = 0
+                itemSpNode8.isHidden = true
+            }
+            else{
+                itemSpNode19.physicsBody?.categoryBitMask = 0
+                itemSpNode19.isHidden = true
+
+            }
 
             // 衝突の時に動かないように設定する
-            itemSpNode.physicsBody?.isDynamic = false
+            itemSpNode8.physicsBody?.isDynamic = false
+            itemNode8.addChild(itemSpNode8)
+            itemSpNode19.physicsBody?.isDynamic = false
+            itemNode19.addChild(itemSpNode19)
 
-            itemNode.addChild(itemSpNode)
+            
+            itemNode8.run(itemAnimation8)
+            itemNode19.run(itemAnimation19)
 
-            itemNode.run(itemAnimation)
+            self.wallNode.addChild(itemNode8)
+            self.wallNode.addChild(itemNode19)
 
-            self.wallNode.addChild(itemNode)
         })
 
+        
         // 次の壁作成までの時間待ちのアクションを作成
         let waitAnimation = SKAction.wait(forDuration: 2)
-
         // 壁を作成->時間待ち->壁を作成を無限に繰り返すアクションを作成
         let repeatForeverAnimation = SKAction.repeatForever(SKAction.sequence([createWallAnimation, waitAnimation]))
 
         wallNode.run(repeatForeverAnimation)
-        
     }
 }
