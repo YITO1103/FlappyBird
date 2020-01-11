@@ -24,29 +24,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     var wallNode:SKNode!
     var bird:SKSpriteNode!
 
-    // 衝突判定カテゴリー ↓追加
+    // 衝突判定カテゴリー
     let birdCategory: UInt32 = 1 << 0       // 0...000001
     let groundCategory: UInt32 = 1 << 1     // 0...000010
     let wallCategory: UInt32 = 1 << 2       // 0...000100
     let scoreCategory: UInt32 = 1 << 3      // 0...001000
 
-    let item8Category: UInt32 = 1 << 4       // 0...010000
-    let item19Category: UInt32 = 1 << 5      // 0...010000
+    let item8Category: UInt32 = 1 << 4      // 0...010000
+    let item19Category: UInt32 = 1 << 5     // 0...010000
 
     // スコア用
     var score = 0
-    
     // アイテムスコア用
     var itemScore = 0
-    var point = 0
+     var point = 0
 
     var scoreLabelNode:SKLabelNode!
     var bestScoreLabelNode:SKLabelNode!
 
     // アイテムスコア用
     var itemScoreLabelNode:SKLabelNode!
+    // ポイント用
     var pointLabelNode:SKLabelNode!
 
+   
+    // スコアの保存用
     let userDefaults:UserDefaults = UserDefaults.standard
 
     // ---------------------------------------------------
@@ -76,13 +78,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         setupScoreLabel()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.init0()
+            self.didMove_sub01()
         }
     }
     
-    func init0 (){
+    func didMove_sub01 (){
         
-        soundGo("start")
+        outputSound("start")
 
         setupWall()
         setupItems()
@@ -91,23 +93,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     }
     
     // ---------------------------------------------------
-    //スコア表示用ラベルの初期化
+    // スコア表示用ラベルの初期化
     // ---------------------------------------------------
     func setupScoreLabel() {
+        let colorLabel =  UIColor.blue
+        let zPositionLabel = CGFloat(100)
+        let xPositionLabel = CGFloat(10)
 
+        var yPositionLabel = CGFloat(60)
+        
         score = 0
         scoreLabelNode = SKLabelNode(fontNamed: "AvenirNext-Bold")
-        scoreLabelNode.fontColor = UIColor.red
-        scoreLabelNode.position = CGPoint(x: 10, y: self.frame.size.height - 60)
-        scoreLabelNode.zPosition = 100 // 一番手前に表示する
+        scoreLabelNode.fontColor = colorLabel
+        scoreLabelNode.position = CGPoint(x: xPositionLabel, y: self.frame.size.height - yPositionLabel) ; yPositionLabel += 30
+        scoreLabelNode.zPosition = zPositionLabel // 一番手前に表示する
         scoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         scoreLabelNode.text = "Score:\(score)"
         self.addChild(scoreLabelNode)
 
         bestScoreLabelNode = SKLabelNode(fontNamed: "AvenirNext-Bold")
-        bestScoreLabelNode.fontColor = UIColor.red
-        bestScoreLabelNode.position = CGPoint(x: 10, y: self.frame.size.height - 90)
-        bestScoreLabelNode.zPosition = 100 // 一番手前に表示する
+        bestScoreLabelNode.fontColor = colorLabel
+        bestScoreLabelNode.position = CGPoint(x: xPositionLabel, y: self.frame.size.height - yPositionLabel) ; yPositionLabel += 30
+        bestScoreLabelNode.zPosition = zPositionLabel // 一番手前に表示する
         bestScoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
 
         let bestScore = userDefaults.integer(forKey: "BEST")
@@ -118,9 +125,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         // アイテムスコア用
         itemScore = 0
         itemScoreLabelNode = SKLabelNode(fontNamed: "AvenirNext-Bold")
-        itemScoreLabelNode.fontColor = UIColor.red
-        itemScoreLabelNode.position = CGPoint(x: 10, y: self.frame.size.height - 120)
-        itemScoreLabelNode.zPosition = 100 // 一番手前に表示する
+        itemScoreLabelNode.fontColor = colorLabel
+        itemScoreLabelNode.position = CGPoint(x: xPositionLabel, y: self.frame.size.height - yPositionLabel) ; yPositionLabel += 30
+        itemScoreLabelNode.zPosition = zPositionLabel // 一番手前に表示する
         itemScoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         itemScoreLabelNode.text = "アイテムスコア:\(score)"
         self.addChild(itemScoreLabelNode)
@@ -128,9 +135,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         // ポイント用
         point = 0
         pointLabelNode = SKLabelNode(fontNamed: "AvenirNext-Bold")
-        pointLabelNode.fontColor = UIColor.blue
-        pointLabelNode.position = CGPoint(x: 10, y: self.frame.size.height - 150)
-        pointLabelNode.zPosition = 100 // 一番手前に表示する
+        pointLabelNode.fontColor = colorLabel
+        pointLabelNode.position = CGPoint(x: xPositionLabel, y: self.frame.size.height - yPositionLabel)
+        pointLabelNode.zPosition = zPositionLabel // 一番手前に表示する
         pointLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         pointLabelNode.text = "ポイント:\(point)"
         self.addChild(pointLabelNode)
@@ -145,15 +152,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         if scrollNode.speed > 0 {
             // 鳥の速度をゼロにする
             bird.physicsBody?.velocity = CGVector.zero
-            // 鳥に縦方向の力を与える
-            bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 40))
-
 
             // for Test
             // 鳥の速度を??にする
             //bird.physicsBody?.velocity = CGVector.init(dx: 10, dy: 1)
+
             // 鳥に縦方向の力を与える
-            //bird.physicsBody?.applyImpulse(CGVector(dx: 30, dy: 40))
+            bird.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 40))
         }
         else if bird.speed == 0 {
             // Speed 0 ＝落ちた状態
@@ -162,8 +167,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     }
 
     var player: AVAudioPlayer?
-    
-    func soundGo(_ fileName: String) {
+    // サウンド出力
+    func outputSound(_ fileName: String) {
         if let sound = NSDataAsset(name: fileName) {
             player = try? AVAudioPlayer(data: sound.data)
             player?.play()
@@ -176,7 +181,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     func didBegin(_ contact: SKPhysicsContact) {
         // ゲームオーバーのときは何もしない
         if scrollNode.speed <= 0 {
-            soundGo( "fin2")
+            outputSound( "fin2")
             return
         }
 
@@ -203,7 +208,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             // itemと衝突した
             contact.bodyA.node!.removeFromParent()
             
-            soundGo( "get")
+            outputSound( "get")
             point += 8
             itemScore += 1
             
@@ -215,7 +220,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             // itemと衝突した
             contact.bodyA.node!.removeFromParent()
 
-            soundGo( "get")
+            outputSound( "get")
             point += 19
             itemScore += 1
             itemScoreLabelNode.text = "アイテムスコア:\(itemScore)"
@@ -230,7 +235,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
             }
             else{
                 print("壁と衝突")
-                soundGo( "don")
+                outputSound( "don")
                 
             }
 
@@ -267,7 +272,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         bird.speed = 1
         scrollNode.speed = 1
         
-        soundGo("start")
+        outputSound("start")
     }
 
     // ---------------------------------------------------
