@@ -54,6 +54,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     // ---------------------------------------------------
     override func didMove(to view: SKView) {
 
+        
+        // 重力を設定
+         physicsWorld.gravity = CGVector(dx: 0, dy: -4)
+         physicsWorld.contactDelegate = self
+
+         // 背景色を設定
+         backgroundColor = UIColor(red: 0.15, green: 0.75, blue: 0.90, alpha: 1)
+
+         // スクロールするスプライトの親ノード
+         scrollNode = SKNode()
+         addChild(scrollNode)
+
+         // 壁用のノード
+         wallNode = SKNode()
+         scrollNode.addChild(wallNode)
+        // 各種スプライトを生成する処理をメソッドに分割
+        setupGround()
+        setupCloud()
+
+        setupScoreLabel()
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.init0()
         }
@@ -61,42 +82,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     
     func init0 (){
         
-        
-       // 重力を設定
-        physicsWorld.gravity = CGVector(dx: 0, dy: -4)
-        physicsWorld.contactDelegate = self
-
-        // 背景色を設定
-        backgroundColor = UIColor(red: 0.15, green: 0.75, blue: 0.90, alpha: 1)
-
-        // スクロールするスプライトの親ノード
-        scrollNode = SKNode()
-        addChild(scrollNode)
-
-        // 壁用のノード
-        wallNode = SKNode()
-        scrollNode.addChild(wallNode)
-
-        // 各種スプライトを生成する処理をメソッドに分割
-        setupGround()
-        setupCloud()
-        setupWall()
-        setupBird()
-
-        setupItems()
-
-        setupScoreLabel()
-
         soundGo("start")
 
-        
+        setupWall()
+        setupItems()
+        setupBird()
+ 
     }
     
     // ---------------------------------------------------
     //スコア表示用ラベルの初期化
     // ---------------------------------------------------
     func setupScoreLabel() {
-
 
         score = 0
         scoreLabelNode = SKLabelNode(fontNamed: "AvenirNext-Bold")
@@ -127,7 +124,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         itemScoreLabelNode.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left
         itemScoreLabelNode.text = "アイテムスコア:\(score)"
         self.addChild(itemScoreLabelNode)
-        // アイテムスコア用
+        
+        // ポイント用
         point = 0
         pointLabelNode = SKLabelNode(fontNamed: "AvenirNext-Bold")
         pointLabelNode.fontColor = UIColor.blue
@@ -253,9 +251,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
     func restart() {
         score = 0
         point = 0
-        scoreLabelNode.text =  "Score:\(score)"
         itemScore = 0
-        itemScoreLabelNode.text = "アイテムスコア:\(itemScore)"
+        scoreLabelNode.text =  "Score:\(score)"
+         itemScoreLabelNode.text = "アイテムスコア:\(itemScore)"
         pointLabelNode.text = "ポイント:\(point)"
         
         
@@ -268,6 +266,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 
         bird.speed = 1
         scrollNode.speed = 1
+        
         soundGo("start")
     }
 
