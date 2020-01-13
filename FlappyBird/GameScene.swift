@@ -1,4 +1,4 @@
-//
+// 課題提出用
 //  GameScene.swift
 //  FlappyBird
 //
