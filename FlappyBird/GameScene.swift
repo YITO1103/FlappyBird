@@ -77,7 +77,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
 
         setupScoreLabel()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+        setupWall()
+        setupItems()
+
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5 ) {
             self.didMove_sub01()
         }
     }
@@ -86,8 +90,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate  {
         
         outputSound("start")
 
-        setupWall()
-        setupItems()
         setupBird()
  
     }
