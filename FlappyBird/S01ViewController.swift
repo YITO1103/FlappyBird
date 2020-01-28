@@ -18,7 +18,7 @@ class S01ViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        loadGifAnimation() 
+        //loadGifAnimation() 
         sleep(10)
         self.dismiss(animated: true, completion: nil)
 
