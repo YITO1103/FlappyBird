@@ -18,6 +18,8 @@
 		7F3DA19623E02B9600EE3ED7 /* S01ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3DA19523E02B9600EE3ED7 /* S01ViewController.swift */; };
 		7F3DA19823E03D4D00EE3ED7 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 7F3DA19723E03D4D00EE3ED7 /* images */; };
 		7F3DA19A23E041FC00EE3ED7 /* 1111.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7F3DA19923E041FC00EE3ED7 /* 1111.gif */; };
+		7F3DA19C23E044C100EE3ED7 /* InitStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7F3DA19B23E044C100EE3ED7 /* InitStoryboard.storyboard */; };
+		7F3DA19E23E0450200EE3ED7 /* S02ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3DA19D23E0450200EE3ED7 /* S02ViewController.swift */; };
 		8790948169E3505F24AFBE07 /* Pods_FlappyBird.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20933A7FFCA75C4100F02143 /* Pods_FlappyBird.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +39,8 @@
 		7F3DA19523E02B9600EE3ED7 /* S01ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S01ViewController.swift; sourceTree = "<group>"; };
 		7F3DA19723E03D4D00EE3ED7 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = ../../Instagram_bk0128/Instagram/images; sourceTree = "<group>"; };
 		7F3DA19923E041FC00EE3ED7 /* 1111.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1111.gif; sourceTree = "<group>"; };
+		7F3DA19B23E044C100EE3ED7 /* InitStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InitStoryboard.storyboard; sourceTree = "<group>"; };
+		7F3DA19D23E0450200EE3ED7 /* S02ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S02ViewController.swift; sourceTree = "<group>"; };
 		9CD9A6DFAFD2766A121C577F /* Pods-FlappyBird.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlappyBird.debug.xcconfig"; path = "Target Support Files/Pods-FlappyBird/Pods-FlappyBird.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -94,6 +98,8 @@
 				7F3C804E23C3321A000FD0D4 /* LaunchScreen.storyboard */,
 				7F3C805123C3321A000FD0D4 /* Info.plist */,
 				7F3DA19523E02B9600EE3ED7 /* S01ViewController.swift */,
+				7F3DA19B23E044C100EE3ED7 /* InitStoryboard.storyboard */,
+				7F3DA19D23E0450200EE3ED7 /* S02ViewController.swift */,
 			);
 			path = FlappyBird;
 			sourceTree = "<group>";
@@ -166,6 +172,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F3DA19C23E044C100EE3ED7 /* InitStoryboard.storyboard in Resources */,
 				7F3DA19823E03D4D00EE3ED7 /* images in Resources */,
 				7F3C805023C3321A000FD0D4 /* LaunchScreen.storyboard in Resources */,
 				7F3DA19A23E041FC00EE3ED7 /* 1111.gif in Resources */,
@@ -226,6 +233,7 @@
 			files = (
 				7F3C804823C33218000FD0D4 /* ViewController.swift in Sources */,
 				7F3C804423C33218000FD0D4 /* AppDelegate.swift in Sources */,
+				7F3DA19E23E0450200EE3ED7 /* S02ViewController.swift in Sources */,
 				7F3C805823C33B29000FD0D4 /* GameScene.swift in Sources */,
 				7F3DA19623E02B9600EE3ED7 /* S01ViewController.swift in Sources */,
 				7F3C804623C33218000FD0D4 /* SceneDelegate.swift in Sources */,
