@@ -30,14 +30,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bird_a" translatesAutoresizingMaskIntoConstraints="NO" id="S8k-ua-rbc">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S8k-ua-rbc">
                                 <rect key="frame" x="0.0" y="44" width="414" height="221"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="S8k-ua-rbc" secondAttribute="height" multiplier="15:8" id="uwf-13-ILd"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="BGf-75-99e" firstAttribute="trailing" secondItem="S8k-ua-rbc" secondAttribute="trailing" id="875-xz-1Nv"/>
                             <constraint firstItem="S8k-ua-rbc" firstAttribute="top" secondItem="BGf-75-99e" secondAttribute="top" id="GMI-Np-mRF"/>
@@ -46,13 +46,13 @@
                         <viewLayoutGuide key="safeArea" id="BGf-75-99e"/>
                     </view>
                     <navigationItem key="navigationItem" id="iBg-Gg-UJA"/>
+                    <connections>
+                        <outlet property="demoImageView" destination="S8k-ua-rbc" id="0V1-H6-1Et"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sht-3M-WBh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="822" y="96"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="bird_a" width="80" height="80"/>
-    </resources>
 </document>

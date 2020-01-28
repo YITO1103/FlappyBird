@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,9 +17,13 @@
 		7F3C805A23C75F22000FD0D4 /* sounds in Resources */ = {isa = PBXBuildFile; fileRef = 7F3C805923C75F22000FD0D4 /* sounds */; };
 		7F3DA19623E02B9600EE3ED7 /* S01ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F3DA19523E02B9600EE3ED7 /* S01ViewController.swift */; };
 		7F3DA19823E03D4D00EE3ED7 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 7F3DA19723E03D4D00EE3ED7 /* images */; };
+		7F3DA19A23E041FC00EE3ED7 /* 1111.gif in Resources */ = {isa = PBXBuildFile; fileRef = 7F3DA19923E041FC00EE3ED7 /* 1111.gif */; };
+		8790948169E3505F24AFBE07 /* Pods_FlappyBird.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20933A7FFCA75C4100F02143 /* Pods_FlappyBird.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		20933A7FFCA75C4100F02143 /* Pods_FlappyBird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FlappyBird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F560DD179938AF28B8CB2D1 /* Pods-FlappyBird.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlappyBird.release.xcconfig"; path = "Target Support Files/Pods-FlappyBird/Pods-FlappyBird.release.xcconfig"; sourceTree = "<group>"; };
 		7F3C804023C33218000FD0D4 /* FlappyBird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappyBird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F3C804323C33218000FD0D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7F3C804523C33218000FD0D4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +36,8 @@
 		7F3C805923C75F22000FD0D4 /* sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sounds; sourceTree = "<group>"; };
 		7F3DA19523E02B9600EE3ED7 /* S01ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S01ViewController.swift; sourceTree = "<group>"; };
 		7F3DA19723E03D4D00EE3ED7 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = ../../Instagram_bk0128/Instagram/images; sourceTree = "<group>"; };
+		7F3DA19923E041FC00EE3ED7 /* 1111.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 1111.gif; sourceTree = "<group>"; };
+		9CD9A6DFAFD2766A121C577F /* Pods-FlappyBird.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FlappyBird.debug.xcconfig"; path = "Target Support Files/Pods-FlappyBird/Pods-FlappyBird.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,17 +45,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8790948169E3505F24AFBE07 /* Pods_FlappyBird.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3EA1F2707F1C303A385E8D06 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9CD9A6DFAFD2766A121C577F /* Pods-FlappyBird.debug.xcconfig */,
+				4F560DD179938AF28B8CB2D1 /* Pods-FlappyBird.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		7F3C803723C33218000FD0D4 = {
 			isa = PBXGroup;
 			children = (
 				7F3C804223C33218000FD0D4 /* FlappyBird */,
 				7F3C804123C33218000FD0D4 /* Products */,
+				3EA1F2707F1C303A385E8D06 /* Pods */,
+				BEFB93217F2C8E424F2F9C10 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +82,7 @@
 		7F3C804223C33218000FD0D4 /* FlappyBird */ = {
 			isa = PBXGroup;
 			children = (
+				7F3DA19923E041FC00EE3ED7 /* 1111.gif */,
 				7F3DA19723E03D4D00EE3ED7 /* images */,
 				7F3C805923C75F22000FD0D4 /* sounds */,
 				7F3C804323C33218000FD0D4 /* AppDelegate.swift */,
@@ -79,6 +98,14 @@
 			path = FlappyBird;
 			sourceTree = "<group>";
 		};
+		BEFB93217F2C8E424F2F9C10 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				20933A7FFCA75C4100F02143 /* Pods_FlappyBird.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -86,9 +113,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7F3C805423C3321A000FD0D4 /* Build configuration list for PBXNativeTarget "FlappyBird" */;
 			buildPhases = (
+				8D17D1EE38809CF9AA3254A4 /* [CP] Check Pods Manifest.lock */,
 				7F3C803C23C33218000FD0D4 /* Sources */,
 				7F3C803D23C33218000FD0D4 /* Frameworks */,
 				7F3C803E23C33218000FD0D4 /* Resources */,
+				07CBFEEF986190913E8360A7 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -139,6 +168,7 @@
 			files = (
 				7F3DA19823E03D4D00EE3ED7 /* images in Resources */,
 				7F3C805023C3321A000FD0D4 /* LaunchScreen.storyboard in Resources */,
+				7F3DA19A23E041FC00EE3ED7 /* 1111.gif in Resources */,
 				7F3C804D23C3321A000FD0D4 /* Assets.xcassets in Resources */,
 				7F3C805A23C75F22000FD0D4 /* sounds in Resources */,
 				7F3C804B23C33218000FD0D4 /* Main.storyboard in Resources */,
@@ -146,6 +176,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		07CBFEEF986190913E8360A7 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlappyBird/Pods-FlappyBird-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-FlappyBird/Pods-FlappyBird-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-FlappyBird/Pods-FlappyBird-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D17D1EE38809CF9AA3254A4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-FlappyBird-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7F3C803C23C33218000FD0D4 /* Sources */ = {
@@ -298,6 +370,7 @@
 		};
 		7F3C805523C3321A000FD0D4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9CD9A6DFAFD2766A121C577F /* Pods-FlappyBird.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -316,6 +389,7 @@
 		};
 		7F3C805623C3321A000FD0D4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4F560DD179938AF28B8CB2D1 /* Pods-FlappyBird.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
